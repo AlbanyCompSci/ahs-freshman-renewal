@@ -8,7 +8,7 @@
         "email": "smorris@ausdk12.org"
     }],
     "scripts": {
-        "make": "mkdir build && jsx -x jsx js/ build/ && browserify build/index.js -o bundle.js",
+        "make": "npm run clean && mkdir build && jsx -x jsx js/ build/ && browserify build/index.js -o bundle.js",
         "clean": "rm -f bundle.js && rm -rf build"
     },
     "main": "build/bundle.js",
