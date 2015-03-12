@@ -1,0 +1,36 @@
+{
+    "name": "ahs-freshman-renewal",
+    "version": "0.0.1",
+    "description": "Website for the Albany High School Freshman Renewal Debates.",
+    "author": "David Harrison <djrh777@gmail.com>",
+    "contributors": [{
+        "name": "Sean Morris",
+        "email": "smorris@ausdk12.org"
+    }],
+    "scripts": {
+        "make": "mkdir build && jsx -x jsx js/ build/ && browserify build/index.js -o bundle.js",
+        "clean": "rm -f bundle.js && rm -rf build"
+    },
+    "main": "build/bundle.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/AlbanyCompSci/ahs-freshman-renewal"
+    },
+    "bugs": {
+        "url": "https://github.com/AlbanyCompSci/ahs-freshman-renewal/issues"
+    },
+    "keywords": [
+        "debates",
+        "react",
+        "bootstrap"
+    ],
+    "dependencies": {
+        "react": "*",
+        "react-bootstrap": "*"
+    },
+    "devDependencies": {
+        "browserify": "*"
+    },
+    "preferGlobal": false,
+    "private": true
+}

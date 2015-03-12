@@ -1,0 +1,9 @@
+# Vim swap files
+*.swp
+
+# NPM installation
+node_modules
+
+# Build files
+build
+bundle.js
