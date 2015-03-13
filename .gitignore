@@ -7,3 +7,6 @@ node_modules
 # Build files
 build
 bundle.js
+
+# Log files
+*.log
