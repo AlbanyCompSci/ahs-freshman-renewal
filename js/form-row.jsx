@@ -1,51 +1,64 @@
 var React = require('react');
 var ReactAddons = require('react/addons');
 var RB = require('react-bootstrap');
+var Firebase = require('firebase');
 
-var FormRow = React.createClass({
-    getInitialState: function() {
-        return {item: this.props.item};
+var FF = require('./form-field');
+var Field = require('./field');
+var DB = require('./DB');
+
+exports.FormRow = React.createClass({
+    propTypes: {
+        firebase: React.PropTypes.instanceOf(Firebase).isRequired,
+        path: React.PropTypes.string,
+        fields: React.PropTypes.arrayOf(Field.fieldType).isRequired,
+        red: React.PropTypes.func,
+        green: React.PropTypes.func
     },
-    onChange: function(field) {
-        return function (event) {
+    getInitialState: function() {
+        return {item: {}};//DB.get(this.props.firebase.child(this.props.path))};
+    },
+    onFieldChange: function(field) {
+        return function (value) {
             var val = event.target.value;
             newItem = this.state.item
             newItem[field.property] = val;
+            console.log("newItem: " + JSON.stringify(newItem));
             this.setState({item: newItem});
-        }
+        }.bind(this)
     },
-    passStateThrough: function(f) {
-        return (
-            function() {
-                console.log("Before: " + JSON.stringify(this.state));
-                this.setState(f(this.props, this.state));
-                console.log("After: " + JSON.stringify(this.state));
-            }.bind(this)
-        );
+    // TODO: should just use setState, which *should* take function arguments
+    updateState: function(f) {
+        this.setState(f(this.state, this.props));
     },
     render: function() {
         return (
             <tr>
-                {
-                    this.props.fields.map(function(field, index) {
-                        return (
-                            <td key={index}>
-                                {function() {
-                                    var val = this.state.item[field.property];
-                                    return field.render(
-                                        val,
-                                        field.validate(val),
-                                        this.onChange(field).bind(this)
-                                    );
-                                }.bind(this)()}
-                            </td>
-                        );
-                    }.bind(this))
-                }
+                {this.props.fields.map(function(field, index) {
+                    if (this.props.path) {
+                        path = this.props.path + '/' + field.property;
+                    } else {
+                        path = null
+                    }
+                    return (
+                        <td key={index}>
+                            <FF.FormField
+                                key={index}
+                                field={field}
+                                firebase={this.props.firebase}
+                                path={path}
+                                onChange={this.onFieldChange(field)}
+                            />
+                        </td>
+                    );
+                }.bind(this))}
                 <td>
                     <RB.Button
                         bsStyle="danger"
-                        onClick={this.passStateThrough(this.props.red)}
+                        onClick={function() {
+                            this.updateState(this.props.red)
+                        }.bind(this)}
+                        disabled={this.props.red === null}
                     >
                         {'\u2717' /* X Mark */}
                     </RB.Button>
@@ -53,7 +66,10 @@ var FormRow = React.createClass({
                 <td>
                     <RB.Button
                         bsStyle="success"
-                        onClick={this.passStateThrough(this.props.green)}
+                        onClick={function() {
+                            this.updateState(this.props.green)
+                        }.bind(this)}
+                        disabled={this.props.green === null}
                     >
                         {'\u2713' /* Check Mark */}
                     </RB.Button>
@@ -63,52 +79,12 @@ var FormRow = React.createClass({
     }
 });
 
-
-exports.FormRow = React.createClass({
-    render: function() {
-        var put = function(props, state) {
-            console.log("PUT");
-            return state
-        };
-        var fdelete = function(props, state) {
-            console.log("DELETE");
-            return state
-        };
-        return (
-            <FormRow
-                { ...this.props }
-                green={put}
-                red={fdelete}
-            />
-        );
+exports.handleError = function(action, item) {
+    return function(error) {
+        if (error) {
+            console.log("Error on action: \'" + action + "\' for item " + item);
+        } else {
+            console.log("Successfully completed action: \'" + action + "\' for item " + item);
+        }
     }
-});
-
-var defaultItem = function(fields) {
-    item = {};
-    fields.map(function(field) {
-        item[field.property] = field.default;
-    });
-    return item;
 };
-
-exports.NewRow = React.createClass({
-    render: function() {
-        var post = function(props, state) {
-            console.log("POST");
-            return defaultItem(props.fields);
-        };
-        var clear = function(props, state) {
-            console.log("CLEAR");
-            return defaultItem(props.fields);
-        };
-        return (
-            <FormRow
-                { ...this.props }
-                item={defaultItem(this.props.fields)}
-                green={post}
-                red={clear}
-            />
-        );
-    },
-});

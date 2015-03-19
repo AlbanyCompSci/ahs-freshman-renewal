@@ -28,7 +28,8 @@
         "react": "*",
         "bootstrap": "*",
         "react-bootstrap": "*",
-        "react-bootstrap-datetimepicker": "*"
+        "firebase": "*",
+        "reactfire": "*"
     },
     "devDependencies": {
         "browserify": "*"
