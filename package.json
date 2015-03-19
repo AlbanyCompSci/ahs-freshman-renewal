@@ -1,39 +1,40 @@
 {
-    "name": "ahs-freshman-renewal",
-    "version": "0.0.1",
-    "description": "Website for the Albany High School Freshman Renewal Debates.",
-    "author": "David Harrison <djrh777@gmail.com>",
-    "contributors": [{
-        "name": "Sean Morris",
-        "email": "smorris@ausdk12.org"
-    }],
-    "scripts": {
-        "make": "npm run clean && mkdir build && jsx -x jsx js/ build/ && browserify build/index.js -o bundle.js",
-        "clean": "rm -f bundle.js && rm -rf build"
-    },
-    "main": "build/bundle.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/AlbanyCompSci/ahs-freshman-renewal"
-    },
-    "bugs": {
-        "url": "https://github.com/AlbanyCompSci/ahs-freshman-renewal/issues"
-    },
-    "keywords": [
-        "debates",
-        "react",
-        "bootstrap"
-    ],
-    "dependencies": {
-        "react": "*",
-        "bootstrap": "*",
-        "react-bootstrap": "*",
-        "firebase": "*",
-        "reactfire": "*"
-    },
-    "devDependencies": {
-        "browserify": "*"
-    },
-    "preferGlobal": false,
-    "private": true
+  "name": "ahs-freshman-renewal",
+  "version": "0.0.0",
+  "description": "Website for the Albany High School Freshman Renewal Debates.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlbanyCompSci/ahs-freshman-renewal.git"
+  },
+  "keywords": [
+    "Debates",
+    "React",
+    "Firebase"
+  ],
+  "author": "David Harrison",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/AlbanyCompSci/ahs-freshman-renewal/issues"
+  },
+  "dependencies": {
+      "react": "*",
+      "firebase": "*",
+      "reactfire": "*",
+      "bootstrap": "*",
+      "react-bootstrap": "*"
+  },
+  "devDependencies": {
+      "grunt": "*",
+      "grunt-jsxhint": "*",
+      "grunt-react": "*",
+      "grunt-browserify": "*",
+      "react-tools": "*"
+  }
 }

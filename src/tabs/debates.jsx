@@ -6,9 +6,9 @@ var ET = require('../entry-table');
 
 var toStyle = function(b) {
     if (b) {
-        return "success"
+        return "success";
     } else {
-        return "error"
+        return "error";
     }
 };
 
@@ -25,7 +25,7 @@ var textInput = function(x, validity, onChange) {
 var always = function(a) { return function(b) { return a; }; };
 
 var nonNull = function(v) {
-    return (v && v != null && v.length > 0);
+    return (v && v !== null && v.length > 0);
 };
 
 titleField = {
@@ -37,7 +37,7 @@ titleField = {
     },
     default: "New Debate",
     boundTables: {}
-}
+};
 
 locationField = {
     property: "location",
@@ -46,7 +46,7 @@ locationField = {
     validate: nonNull,
     default: "",
     boundTables: {}
-}
+};
 
 timeField = {
     property: "time",
@@ -55,7 +55,7 @@ timeField = {
     validate: nonNull,
     default: "",
     boundTables: {}
-}
+};
 
 judgesField = {
     property: "judges",
@@ -66,7 +66,7 @@ judgesField = {
     boundTables: {
         "judges": "judges"
     }
-}
+};
 
 affTeamField = {
     property: "affTeam",
@@ -77,7 +77,7 @@ affTeamField = {
     boundTables: {
         "teams": "teams"
     }
-}
+};
 
 negTeamField = {
     property: "negTeam",
@@ -88,7 +88,7 @@ negTeamField = {
     boundTables: {
         "teams": "teams"
     }
-}
+};
 
 var fields = [
     titleField,

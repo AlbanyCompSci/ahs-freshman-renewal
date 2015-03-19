@@ -5,8 +5,8 @@
 node_modules
 
 # Build files
-build
-bundle.js
+dist
+index.js
 
 # Log files
 *.log

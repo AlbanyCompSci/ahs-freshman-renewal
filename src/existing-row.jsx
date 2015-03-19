@@ -1,6 +1,6 @@
 var React = require('react');
 
-var FR = require('./form-row')
+var FR = require('./form-row');
 var Field = require('./field');
 var DB = require('./DB');
 

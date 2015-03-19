@@ -15,7 +15,7 @@ exports.EntryTable = React.createClass({
         fields: React.PropTypes.arrayOf(Field.fieldType).isRequired
     },
     getInitialState: function() {
-        return {itemKeys: []}
+        return {itemKeys: []};
     },
     componentWillMount: function() {
         this.bindAsArray(
@@ -30,7 +30,7 @@ exports.EntryTable = React.createClass({
                     <tr>
                         {
                             this.props.fields.map(function (field, index) {
-                                return <th key={index}>{field.header}</th>;
+                                return (<th key={index}>{field.header}</th>);
                             })
                         }
                         <th>Delete</th>

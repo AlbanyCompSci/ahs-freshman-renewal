@@ -12,7 +12,7 @@ exports.FormField = React.createClass({
     },
     getInitialState: function() {
         boundTables = {};
-        for (k in this.props.field.boundTables) {
+        for (var k in this.props.field.boundTables) {
             boundTables[k] = [];
         }
         return {
@@ -31,12 +31,12 @@ exports.FormField = React.createClass({
                 }.bind(this)
             );
         }
-        for (k in this.props.field.boundTables) {
-            table = this.props.field.boundTables[k]
+        for (var k in this.props.field.boundTables) {
+            table = this.props.field.boundTables[k];
             this.props.firebase.child(table).child("values").on("value",
                 function(snap) {
-                    boundTables = this.state.boundTables
-                    boundTables[k] = snap.val()
+                    boundTables = this.state.boundTables;
+                    boundTables[k] = snap.val();
                     this.setState({boundTables: boundTables});
                 }.bind(this)
             );

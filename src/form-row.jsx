@@ -21,11 +21,11 @@ exports.FormRow = React.createClass({
     onFieldChange: function(field) {
         return function (value) {
             var val = event.target.value;
-            newItem = this.state.item
+            newItem = this.state.item;
             newItem[field.property] = val;
             console.log("newItem: " + JSON.stringify(newItem));
             this.setState({item: newItem});
-        }.bind(this)
+        }.bind(this);
     },
     // TODO: should just use setState, which *should* take function arguments
     updateState: function(f) {
@@ -38,7 +38,7 @@ exports.FormRow = React.createClass({
                     if (this.props.path) {
                         path = this.props.path + '/' + field.property;
                     } else {
-                        path = null
+                        path = null;
                     }
                     return (
                         <td key={index}>
@@ -56,7 +56,7 @@ exports.FormRow = React.createClass({
                     <RB.Button
                         bsStyle="danger"
                         onClick={function() {
-                            this.updateState(this.props.red)
+                            this.updateState(this.props.red);
                         }.bind(this)}
                         disabled={this.props.red === null}
                     >
@@ -67,7 +67,7 @@ exports.FormRow = React.createClass({
                     <RB.Button
                         bsStyle="success"
                         onClick={function() {
-                            this.updateState(this.props.green)
+                            this.updateState(this.props.green);
                         }.bind(this)}
                         disabled={this.props.green === null}
                     >
@@ -86,5 +86,5 @@ exports.handleError = function(action, item) {
         } else {
             console.log("Successfully completed action: \'" + action + "\' for item " + item);
         }
-    }
+    };
 };
