@@ -1,31 +1,23 @@
 var React = require('react');
-var RB = require('react-bootstrap');
+var { Table } = require('react-bootstrap');
 var Firebase = require('firebase');
-//var ReactFire = require('reactfire');
 
-var NR = require('./new-row');
-var ER = require('./existing-row');
-var Field = require('./field');
+var { NewRow } = require('./new-row');
+var { ExistingRow } = require('./existing-row');
+var { fieldType, tableType, bindsType } = require('./types');
+
+var Type = React.PropTypes;
 
 exports.EntryTable = React.createClass({
-    mixins: [ReactFireMixin],
     propTypes: {
-        firebase: React.PropTypes.instanceOf(Firebase).isRequired,
-        tablePath: React.PropTypes.string.isRequired,
-        fields: React.PropTypes.arrayOf(Field.fieldType).isRequired
-    },
-    getInitialState: function() {
-        return {itemKeys: []};
-    },
-    componentWillMount: function() {
-        this.bindAsArray(
-            this.props.firebase.child(this.props.tablePath).child('keys'),
-            "itemKeys"
-        );
+        fields: Type.arrayOf(fieldType).isRequired,
+        table: tableType.isRequired,
+        binds: bindsType.isRequired,
+        firebase: Type.instanceOf(Firebase).isRequired
     },
     render: function() {
         return (
-            <RB.Table responsive>
+            <Table responsive>
                 <thead>
                     <tr>
                         {
@@ -38,24 +30,24 @@ exports.EntryTable = React.createClass({
                     </tr>
                 </thead>
                 <tbody>
-                    {this.state.itemKeys.map(function (key) {
+                    {Object.keys(this.props.table).map(function (key) {
                         return (
-                            <ER.ExistingRow
+                            <ExistingRow
                                 key={key}
-                                itemKey={key}
+                                value={this.props.table[key]}
+                                binds={this.props.binds}
                                 fields={this.props.fields}
-                                firebase={this.props.firebase}
-                                tablePath={this.props.tablePath}
+                                firebase={this.props.firebase.child(key)}
                             />
                         );
                     }.bind(this))}
-                    <NR.NewRow
+                    <NewRow
+                        binds={this.props.binds}
                         fields={this.props.fields}
                         firebase={this.props.firebase}
-                        tablePath={this.props.tablePath}
                     />
                 </tbody>
-            </RB.Table>
+            </Table>
         );
     }
 });

@@ -26,9 +26,9 @@
   "dependencies": {
       "react": "*",
       "firebase": "*",
-      "reactfire": "*",
       "bootstrap": "*",
-      "react-bootstrap": "*"
+      "react-bootstrap": "*",
+      "underscore": "*"
   },
   "devDependencies": {
       "grunt": "*",

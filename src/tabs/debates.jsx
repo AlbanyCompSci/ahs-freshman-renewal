@@ -1,8 +1,7 @@
 var React = require('react');
-var RB = require('react-bootstrap');
-//var RBDT = require('react-bootstrap-datetimepicker');
+var { Input } = require('react-bootstrap');
 
-var ET = require('../entry-table');
+var { EntryTable } = require('../entry-table');
 
 var toStyle = function(b) {
     if (b) {
@@ -13,7 +12,7 @@ var toStyle = function(b) {
 };
 
 var textInput = function(x, validity, onChange) {
-    return (<RB.Input
+    return (<Input
         type="text"
         bsStyle={toStyle(validity)}
         value={x}
@@ -99,13 +98,18 @@ var fields = [
     negTeamField
 ];
 
+exports.name = "debates";
 exports.title = "Debates";
-exports.body = function(firebase) {
+exports.binds = {
+    debates: "debates"
+};
+exports.body = function(binds, firebase) {
     return (
-        <ET.EntryTable
-            tablePath={"debates"}
+        <EntryTable
             fields={fields}
-            firebase={firebase}
+            table={binds.debates}
+            binds={binds}
+            firebase={firebase.child("debates")}
         />
     );
 };

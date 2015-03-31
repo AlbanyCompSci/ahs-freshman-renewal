@@ -1,25 +1,31 @@
 var React = require('react');
 
-var FR = require('./form-row');
-var DB = require('./DB');
+var { FormRow } = require('./form-row');
+var { fieldType, bindsType } = require('./types');
+
+var Type = React.PropTypes;
 
 exports.NewRow = React.createClass({
     propTypes: {
-        firebase: React.PropTypes.instanceOf(Firebase).isRequired,
-        tablePath: React.PropTypes.string.isRequired
+        fields: Type.arrayOf(fieldType).isRequired,
+        binds: bindsType.isRequired,
+        firebase: Type.instanceOf(Firebase).isRequired
+    },
+    componentWillMount: function() {
+        this.defaultRow = {};
+        this.props.fields.map(function(f) {
+            this.defaultRow[f.property] = f.default;
+        }.bind(this));
     },
     render: function() {
         return (
-            <FR.FormRow
+            <FormRow
                 fields={this.props.fields}
-                firebase={this.props.firebase}
-                path={null}
+                value={this.defaultRow}
+                binds={this.props.binds}
                 green={function (state, props) {
-                    DB.postTable(
-                        this.props.firebase.child(this.props.tablePath),
-                        state.item
-                    );
-                    return {item: null};
+                    this.props.firebase.push(state.item);
+                    return {item: state.item};
                 }.bind(this)}
                 red={null}
             />

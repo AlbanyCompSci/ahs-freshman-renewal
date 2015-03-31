@@ -2,6 +2,9 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         react: {
+            options: {
+                harmony: true
+            },
             dynamic_mappings: {
                 files: [
                     {
@@ -25,12 +28,14 @@ module.exports = function(grunt) {
         },
         jshint: {
             files: ['gruntfile.js', 'src/**/*.jsx', 'test/**/*.js'],
-            options: {}
+            options: {
+                esnext: true
+            }
         },
     });
     grunt.loadNpmTasks('grunt-jsxhint');
     grunt.loadNpmTasks('grunt-react');
     grunt.loadNpmTasks('grunt-browserify');
-    grunt.registerTask('test', ['jshint']);
+    grunt.registerTask('lint', ['jshint']);
     grunt.registerTask('default', ['react', 'browserify']);
 }
