@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactAddons = require('react/addons');
 var { Button } = require('react-bootstrap');
-var Underscore = require('underscore');
+var _ = require('lodash');
 
 var { FormField } = require('./form-field');
 var { fieldType, bindsType } = require('./types');
@@ -32,7 +32,7 @@ exports.FormRow = React.createClass({
         this.setState(f(this.state, this.props));
     },
     validates: function(item) {
-        return Underscore.reduce(this.props.fields, function(acc, field) {
+        return _.reduce(this.props.fields, function(acc, field) {
             return field.validate(item[field.property]) && acc;
         }, true);
     },

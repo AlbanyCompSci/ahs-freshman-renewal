@@ -11,11 +11,11 @@ var toStyle = function(b) {
     }
 };
 
-var textInput = function(x, validity, onChange) {
+var textInput = function(value, binds, validity, onChange) {
     return (<Input
         type="text"
         bsStyle={toStyle(validity)}
-        value={x}
+        value={value}
         onChange={onChange}
         hasFeedback
     />);

@@ -22,6 +22,7 @@ exports.FormField = React.createClass({
     render: function() {
         return this.props.field.render(
             this.state.value,
+            this.state.binds,
             this.props.field.validate(this.state.value),
             this.onChange
         );
