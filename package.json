@@ -34,8 +34,8 @@
   "devDependencies": {
     "grunt": "*",
     "grunt-jsxhint": "*",
-    "grunt-react": "*",
-    "grunt-browserify": "*",
-    "react-tools": "*"
+    "react-tools": "*",
+    "webpack": "~1.7.3",
+    "webpack-dev-server": "~1.8.0"
   }
 }
