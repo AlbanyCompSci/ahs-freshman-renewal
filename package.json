@@ -23,18 +23,12 @@
   "bugs": {
     "url": "https://github.com/AlbanyCompSci/ahs-freshman-renewal/issues"
   },
-  "dependencies": {
-      "react": "*",
-      "firebase": "*",
-      "bootstrap": "*",
-      "react-bootstrap": "*",
-      "underscore": "*"
-  },
+  "dependencies": {},
   "devDependencies": {
-      "grunt": "*",
-      "grunt-jsxhint": "*",
-      "grunt-react": "*",
-      "grunt-browserify": "*",
-      "react-tools": "*"
+    "grunt": "*",
+    "grunt-jsxhint": "*",
+    "grunt-react": "*",
+    "grunt-browserify": "*",
+    "react-tools": "*"
   }
 }
