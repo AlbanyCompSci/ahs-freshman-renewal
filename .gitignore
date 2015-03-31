@@ -4,6 +4,9 @@
 # NPM installation
 node_modules
 
+# Bower installation
+bower_components
+
 # Build files
 dist
 index.js
