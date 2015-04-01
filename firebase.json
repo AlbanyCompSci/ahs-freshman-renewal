@@ -1,0 +1,9 @@
+{
+  "firebase": "ahs-freshman-renewal",
+  "public": "deploy",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
