@@ -21,5 +21,6 @@
 - Deal with bound tables in a sensible way
     - maximize performance
     - more importantly, make clear and easy
-- Require CSS in app rather than html
 - Change name from ahs-freshman-renewal when new name is decided upon
+- Allow unicode characters in minimize source
+- Validation feedback for select boxes
