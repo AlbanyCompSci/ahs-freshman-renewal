@@ -2,7 +2,7 @@ require('bootstrap/less/bootstrap.less');
 
 var React = require('react');
 var ReactAddons = require('react/addons');
-var { Button } = require('react-bootstrap');
+var { Button, Glyphicon } = require('react-bootstrap');
 var _ = require('lodash');
 
 var { FormField } = require('./form-field');
@@ -62,7 +62,7 @@ exports.FormRow = React.createClass({
                         }.bind(this)}
                         disabled={this.props.red === null}
                     >
-                    {'Delete'/*\u2717*/}
+                    <Glyphicon glyph='remove' />
                     </Button>
                 </td>
                 <td>
@@ -75,7 +75,7 @@ exports.FormRow = React.createClass({
                         }.bind(this)}
                         disabled={this.props.green === null}
                     >
-                    {'Update'/*\u2713*/}
+                    <Glyphicon glyph='ok' />
                     </Button>
                 </td>
             </tr>
