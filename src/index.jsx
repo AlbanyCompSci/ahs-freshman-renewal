@@ -54,6 +54,9 @@ var App = React.createClass({
             }.bind(this));
         }.bind(this));
     },
+    componentDidMount: function() {
+        document.title = 'AHS Freshman Debates';
+    },
     componentWillUnmount: function() {
         this.firebase.off();
     },
