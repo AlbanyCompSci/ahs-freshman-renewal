@@ -1,12 +1,20 @@
 require('bootstrap/less/bootstrap.less');
 require('react-select/less/default.less');
+require('react-bootstrap-datetimepicker/css/bootstrap-datetimepicker.css');
 
 var React = require('react');
 var { Input } = require('react-bootstrap');
 var Select = require('react-select');
+var DateTimeField = require('react-bootstrap-datetimepicker');
 var _ = require('lodash');
 
 var { EntryTable } = require('../entry-table');
+
+var get = function(key) {
+    return function(obj) {
+        return obj[key];
+    };
+};
 
 var toStyle = function(b) {
     if (b) {
@@ -29,16 +37,33 @@ var textInput = function(value, binds, validity, onChange) {
     />);
 };
 
-var selectInput = function(table, show) {
+var selectInput = function(table, show, kwargs) {
+    kwargs = kwargs || {multi: false};
     return (function(value, binds, validity, onChange) {
-        console.log('binds: ' + JSON.stringify(binds));
         var options = _.transform(binds[table], function(acc, val, key) {
             acc.push({value: key, label: show(val)});
         }, []);
+        // NOTE: We have to check that the key is in the current table before
+        // it is loaded, this may not necessarily be the case when the app
+        // is first loading, as values are added incrementally
+        var values = kwargs.multi ? value.split(',') : [value]
+        values = _.filter(values, function(key) {
+            return _.has(binds[table], key)
+        });
+        var val = values.length > 0 ? values.join(',') : null
         return (
-            <Select value={value} options={options} onChange={onChange} />
+            <Select
+                multi={kwargs.multi}
+                value={val}
+                options={options}
+                onChange={onChange}
+            />
         );
     });
+};
+
+var dateTimeInput = function(value, binds, validity, onChange) {
+    return (<DateTimeField dateTime={value} onChange={onChange} />);
 };
 
 var always = function(a) { return function(b) { return a; }; };
@@ -68,15 +93,15 @@ locationField = {
 timeField = {
     property: "time",
     header: "Time",
-    render: textInput,
+    render: dateTimeInput,
     validate: nonNull,
-    default: "",
+    default: String(_.now()),
 };
 
 judgesField = {
     property: "judges",
     header: "Judges",
-    render: textInput,
+    render: selectInput('judges', get('name'), {multi: true}),
     validate: nonNull,
     default: "",
     boundTables: {
@@ -87,7 +112,7 @@ judgesField = {
 affTeamField = {
     property: "affTeam",
     header: "Affirmative",
-    render: selectInput("teams", function (team) { return team.name }),
+    render: selectInput('teams', get('name')),
     validate: nonNull,
     default: "",
     boundTables: {
@@ -98,7 +123,7 @@ affTeamField = {
 negTeamField = {
     property: "negTeam",
     header: "Negative",
-    render: selectInput("teams", function (team) { return team.name }),
+    render: selectInput('teams', get('name')),
     validate: nonNull,
     default: "",
 };
