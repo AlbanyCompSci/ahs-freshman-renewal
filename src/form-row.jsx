@@ -62,7 +62,7 @@ exports.FormRow = React.createClass({
                         }.bind(this)}
                         disabled={this.props.red === null}
                     >
-                        {'\u2717' /* X Mark */}
+                    {'Delete'/*\u2717*/}
                     </Button>
                 </td>
                 <td>
@@ -75,7 +75,7 @@ exports.FormRow = React.createClass({
                         }.bind(this)}
                         disabled={this.props.green === null}
                     >
-                        {'\u2713' /* Check Mark */}
+                    {'Update'/*\u2713*/}
                     </Button>
                 </td>
             </tr>
