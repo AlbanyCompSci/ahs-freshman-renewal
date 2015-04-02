@@ -3,7 +3,7 @@ var Config = require('./config');
 
 module.exports = function(grunt) {
     var webpackBasic = {
-        entry: './src/index.jsx',
+        entry: './src/main.jsx',
         output: {
             filename: './index.js'
         },

@@ -2,7 +2,7 @@
   "name": "ahs-freshman-renewal",
   "version": "0.0.0",
   "description": "Website for the Albany High School Freshman Renewal Debates.",
-  "main": "index.js",
+  "main": "src/main.jsx",
   "directories": {
     "doc": "docs"
   },
