@@ -1,3 +1,5 @@
+require('bootstrap/less/bootstrap.less');
+
 var React = require('react');
 var ReactAddons = require('react/addons');
 var { Button } = require('react-bootstrap');

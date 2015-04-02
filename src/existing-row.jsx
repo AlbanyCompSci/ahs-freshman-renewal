@@ -1,3 +1,5 @@
+require('bootstrap/less/bootstrap.less');
+
 var React = require('react');
 var Firebase = require('firebase');
 

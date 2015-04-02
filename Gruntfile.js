@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var Config = require('./config');
 
 module.exports = function(grunt) {
     var webpackBasic = {
@@ -8,12 +9,14 @@ module.exports = function(grunt) {
         },
         module: {
             loaders: [
-                { test: /\.jsx$/, loader: 'jsx-loader?harmony' },
-                { test: /\.css$/, loader: 'style-loader!css-loader' }
+                { test: /\.jsx$/, loader: 'jsx?harmony' },
+                { test: /\.less$/, loader: 'style!css!less' },
+                { test: /\.css$/, loader: 'style!css' },
+                { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
             ]
         },
         resolve: {
-            extensions: ['', '.js', '.jsx']
+            extensions: ['', '.js', '.jsx', '.css', '.less']
         }
     }
     grunt.initConfig({ pkg: grunt.file.readJSON('package.json'),
@@ -33,7 +36,7 @@ module.exports = function(grunt) {
                     output: {filename: 'deploy/index.js'}
                 }
             )
-        }
+        },
     });
     grunt.loadNpmTasks('grunt-jsxhint');
     grunt.loadNpmTasks('grunt-webpack');

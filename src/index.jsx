@@ -1,4 +1,4 @@
-var css = require('bootstrap/less/bootstrap.less');
+require('bootstrap/less/bootstrap.less');
 
 var React = require('react');
 var RB = require('react-bootstrap');
@@ -78,5 +78,5 @@ var App = React.createClass({
 
 React.render(
     <App />,
-    document.getElementById('example')
+    document.getElementById('body')
 );

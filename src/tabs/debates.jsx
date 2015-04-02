@@ -1,3 +1,6 @@
+require('bootstrap/less/bootstrap.less');
+require('react-select/less/default.less');
+
 var React = require('react');
 var { Input } = require('react-bootstrap');
 var Select = require('react-select');
