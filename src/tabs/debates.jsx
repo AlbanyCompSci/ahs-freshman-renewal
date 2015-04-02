@@ -1,5 +1,7 @@
 var React = require('react');
 var { Input } = require('react-bootstrap');
+var Select = require('react-select');
+var _ = require('lodash');
 
 var { EntryTable } = require('../entry-table');
 
@@ -12,13 +14,28 @@ var toStyle = function(b) {
 };
 
 var textInput = function(value, binds, validity, onChange) {
+    var onChangeEvent = function(event) {
+        return onChange(event.target.value)
+    };
     return (<Input
         type="text"
         bsStyle={toStyle(validity)}
         value={value}
-        onChange={onChange}
+        onChange={onChangeEvent}
         hasFeedback
     />);
+};
+
+var selectInput = function(table, show) {
+    return (function(value, binds, validity, onChange) {
+        console.log('binds: ' + JSON.stringify(binds));
+        var options = _.transform(binds[table], function(acc, val, key) {
+            acc.push({value: key, label: show(val)});
+        }, []);
+        return (
+            <Select value={value} options={options} onChange={onChange} />
+        );
+    });
 };
 
 var always = function(a) { return function(b) { return a; }; };
@@ -35,16 +52,14 @@ titleField = {
         return ((v !== "New Debate") && (v.length > 0));
     },
     default: "New Debate",
-    boundTables: {}
 };
 
 locationField = {
     property: "location",
     header: "Location",
-    render: textInput,
+    render: selectInput('location', _.identity),
     validate: nonNull,
     default: "",
-    boundTables: {}
 };
 
 timeField = {
@@ -53,7 +68,6 @@ timeField = {
     render: textInput,
     validate: nonNull,
     default: "",
-    boundTables: {}
 };
 
 judgesField = {
@@ -70,7 +84,7 @@ judgesField = {
 affTeamField = {
     property: "affTeam",
     header: "Affirmative",
-    render: textInput,
+    render: selectInput("teams", function (team) { return team.name }),
     validate: nonNull,
     default: "",
     boundTables: {
@@ -81,12 +95,9 @@ affTeamField = {
 negTeamField = {
     property: "negTeam",
     header: "Negative",
-    render: textInput,
+    render: selectInput("teams", function (team) { return team.name }),
     validate: nonNull,
     default: "",
-    boundTables: {
-        "teams": "teams"
-    }
 };
 
 var fields = [
@@ -101,7 +112,10 @@ var fields = [
 exports.name = "debates";
 exports.title = "Debates";
 exports.binds = {
-    debates: "debates"
+    debates: 'debates',
+    judges: 'judges',
+    teams: 'teams',
+    locations: 'locations'
 };
 exports.body = function(binds, firebase) {
     return (

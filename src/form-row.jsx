@@ -20,10 +20,9 @@ exports.FormRow = React.createClass({
         return {item: this.props.value};
     },
     onFieldChange: function(field) {
-        return function (value) {
-            var val = event.target.value;
-            newItem = this.state.item;
-            newItem[field.property] = val;
+        return function (newValue) {
+            newItem = _.clone(this.state.item);
+            newItem[field.property] = newValue;
             this.setState({item: newItem});
         }.bind(this);
     },
@@ -40,8 +39,9 @@ exports.FormRow = React.createClass({
         return (
             <tr>
                 {this.props.fields.map(function(field, index) {
+                    var width = (1 / this.props.fields.length) * 100
                     return (
-                        <td key={index}>
+                        <td key={index} width={width + '%'}>
                             <FormField
                                 key={index}
                                 value={this.state.item[field.property]}

@@ -14,15 +14,14 @@ exports.FormField = React.createClass({
     getInitialState: function() {
         return {value: this.props.value};
     },
-    onChange: function(event) {
-        this.props.onChange(event);
-        var val = event.target.value;
-        this.setState({value: val});
+    onChange: function(newValue) {
+        this.props.onChange(newValue);
+        this.setState({value: newValue});
     },
     render: function() {
         return this.props.field.render(
             this.state.value,
-            this.state.binds,
+            this.props.binds,
             this.props.field.validate(this.state.value),
             this.onChange
         );

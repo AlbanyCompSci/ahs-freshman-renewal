@@ -5,9 +5,8 @@ exports.fieldType = Type.shape({
     header: Type.string.isRequired,
     render: Type.func.isRequired,
     validate: Type.func.isRequired,
-    default: Type.any.isRequired,
-    boundTables: Type.object.isRequired
+    default: Type.any.isRequired
 });
 
-exports.tableType = Type.objectOf(Type.object);
+exports.tableType = Type.objectOf(Type.any);
 exports.bindsType = Type.objectOf(exports.tableType);
