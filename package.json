@@ -28,14 +28,16 @@
     "react-bootstrap": "~0.20.0",
     "firebase": "~2.2.3",
     "react": "~0.13.1",
-    "react-chosen": "~0.3.7",
-    "lodash": "~3.6.0"
+    "lodash": "~3.6.0",
+    "react-select": "~0.4.5"
   },
   "devDependencies": {
     "grunt": "*",
     "grunt-jsxhint": "*",
     "react-tools": "*",
     "webpack": "~1.7.3",
-    "webpack-dev-server": "~1.8.0"
+    "webpack-dev-server": "~1.8.0",
+    "grunt-webpack": "~1.0.8",
+    "grunt-keepalive": "0.0.1"
   }
 }

@@ -5,7 +5,7 @@
 node_modules
 
 # Build files
-dist
+deploy
 index.js
 
 # Log files
