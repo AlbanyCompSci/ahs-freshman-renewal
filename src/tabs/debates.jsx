@@ -60,7 +60,7 @@ titleField = {
 locationField = {
     property: "location",
     header: "Location",
-    render: selectInput('location', _.identity),
+    render: selectInput('locations', _.identity),
     validate: nonNull,
     default: "",
 };
