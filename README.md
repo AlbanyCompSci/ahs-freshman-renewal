@@ -22,5 +22,8 @@
     - maximize performance
     - more importantly, make clear and easy
 - Change name from ahs-freshman-renewal when new name is decided upon
-- Allow unicode characters in minimize source
+- Allow Unicode characters in minimize source
+- Fix Unicode support for multi select boxes (non-minimized source)
 - Validation feedback for select boxes
+- Prevent scroll bar from appearing on expanding select menus
+- Add put, post and delete properties to field type
