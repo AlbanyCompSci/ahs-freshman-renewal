@@ -72,6 +72,8 @@ exports.FormRow = React.createClass({
                         onClick={function() {
                             if (this.validates(this.state.item)) {
                                 this.updateState(this.props.green);
+                            } else {
+                                alert('Validation failed');
                             }
                         }.bind(this)}
                         disabled={this.props.green === null}
