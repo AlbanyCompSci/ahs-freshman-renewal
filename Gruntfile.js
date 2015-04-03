@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var Webpack = require('webpack');
 var Config = require('./config');
 
 module.exports = function(grunt) {
@@ -32,7 +33,13 @@ module.exports = function(grunt) {
             production: _.assign(
                 _.clone(webpackBasic),
                 {
-                    optimize: {minimize: true},
+                    plugins: [
+                        new Webpack.optimize.UglifyJsPlugin({
+                            beautify: {
+                                ascii_only: true
+                            }
+                        })
+                    ],
                     output: {filename: 'deploy/index.js'}
                 }
             )
