@@ -17,6 +17,7 @@
     - `grunt`
 
 ## TODO
+- **Documentation**
 - Authentication/Authorization
 - Deal with bound tables in a sensible way
     - maximize performance
