@@ -44,12 +44,27 @@ module.exports = function(grunt) {
                 }
             )
         },
+        firebase: {
+            options: {
+                reference: Config.FIREBASE_REFERENCE,
+                token: Config.FIREBASE_TOKEN,
+            },
+            backup: {
+                options: {
+                    mode: 'download',
+                    dest: Config.BACKUP_DIR + '/' + (new Date()).toISOString()
+                }
+            }
+        }
     });
     grunt.loadNpmTasks('grunt-jsxhint');
     grunt.loadNpmTasks('grunt-webpack');
     grunt.loadNpmTasks('grunt-keepalive');
+    grunt.loadNpmTasks('grunt-firebase');
     grunt.registerTask('lint', ['jshint']);
     grunt.registerTask('dev-build', ['webpack:dev']);
     grunt.registerTask('dev-watch', ['webpack:devWatch', 'keepalive']);
     grunt.registerTask('build', ['webpack:production']);
+    grunt.registerTask('seed', ['firebase:seed']);
+    grunt.registerTask('backup', ['firebase:backup']);
 }

@@ -11,3 +11,9 @@ index.js
 
 # Log files
 *.log
+
+# Secrets file
+secret.js
+
+# Backups from Firebase
+backup
