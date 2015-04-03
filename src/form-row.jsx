@@ -6,7 +6,8 @@ var { Button, Glyphicon } = require('react-bootstrap');
 var _ = require('lodash');
 
 var { FormField } = require('./form-field');
-var { fieldType, bindsType } = require('./types');
+var { bindsType } = require('./types');
+var { fieldType } = require('./field-lib');
 
 var Type = React.PropTypes;
 

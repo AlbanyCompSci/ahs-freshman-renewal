@@ -6,7 +6,8 @@ var Firebase = require('firebase');
 
 var { NewRow } = require('./new-row');
 var { ExistingRow } = require('./existing-row');
-var { fieldType, tableType, bindsType } = require('./types');
+var { tableType, bindsType } = require('./types');
+var { fieldType } = require('./field-lib');
 
 var Type = React.PropTypes;
 

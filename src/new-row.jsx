@@ -3,7 +3,8 @@ require('bootstrap/less/bootstrap.less');
 var React = require('react');
 
 var { FormRow } = require('./form-row');
-var { fieldType, bindsType } = require('./types');
+var { bindsType } = require('./types');
+var { fieldType } = require('./field-lib');
 
 var Type = React.PropTypes;
 

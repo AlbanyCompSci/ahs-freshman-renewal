@@ -2,7 +2,8 @@ require('bootstrap/less/bootstrap.less');
 
 var React = require('react');
 
-var { fieldType, bindsType } = require('./types');
+var { bindsType } = require('./types');
+var { fieldType } = require('./field-lib');
 
 var Type = React.PropTypes;
 
@@ -11,7 +12,7 @@ exports.FormField = React.createClass({
         value: Type.any.isRequired,
         binds: bindsType.isRequired,
         field: fieldType.isRequired,
-        onChange: Type.func.isRequired,
+        onChange: Type.func.isRequired
     },
     getInitialState: function() {
         return {value: this.props.value};
