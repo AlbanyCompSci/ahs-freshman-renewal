@@ -32,7 +32,7 @@ module.exports = function(grunt) {
         webpack: {
             dev: webpackConfig({dir: 'dev'}),
             devWatch: webpackConfig({dir: 'dev', watch: true}),
-            production: webpackConfig({dir: 'dist', plugins: [
+            dist: webpackConfig({dir: 'dist', plugins: [
                 new Webpack.optimize.UglifyJsPlugin({
                     beautify: {
                         ascii_only: true
@@ -60,7 +60,7 @@ module.exports = function(grunt) {
     grunt.registerTask('lint', ['jshint']);
     grunt.registerTask('dev-build', ['webpack:dev']);
     grunt.registerTask('dev-watch', ['webpack:devWatch', 'keepalive']);
-    grunt.registerTask('build', ['webpack:production']);
+    grunt.registerTask('dist', ['webpack:dist']);
     grunt.registerTask('seed', ['firebase:seed']);
     grunt.registerTask('backup', ['firebase:backup']);
 }
