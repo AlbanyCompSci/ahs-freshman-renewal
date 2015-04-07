@@ -2,12 +2,11 @@
 *.swp
 
 # NPM installation
-node_modules
+node_modules/
 
 # Build files
-deploy
-index.js
-*.svg # built by Webpack from CSS
+dev/  # development builds
+dist/ # production builds to be deployed with Firebase
 
 # Log files
 *.log
