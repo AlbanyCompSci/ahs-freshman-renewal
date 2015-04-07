@@ -1,0 +1,68 @@
+{
+    debates: {
+        a: {
+            title: 'California Minimum Wage',
+            location: 'a',
+            time: '2015-03-21T14:00:00Z',
+            judges: ['a','b','c'],
+            affTeam: 'a',
+            negTeam: 'b'
+        }
+        b: {
+            title: 'Should GMO Foods be Labeled',
+            location: 'b',
+            time: '2015-03-22T12:00:00Z',
+            judges: ['a','b','c']
+            affTeam: 'a',
+            negTeam: 'b'
+        }
+    }
+    teams: {
+        a: {
+            debate: 'a',
+            name: 'LentP2T3',
+            teachers: ['a', 'b'],
+            debaters: ['a', 'b', 'c'],
+            scores: {a: 'c', b: 'a', c: 'a'}
+        }
+        b: {
+            debate: 'a',
+            name: 'HudsonP1T2',
+            teachers: ['c', 'd'],
+            debaters: ['a', 'b', 'c'],
+            scores: {a: 'e', b: 'f', c: 'g'}
+        }
+    }
+    debaters: {
+        a: {
+            name: 'Tim Student',
+            email: 'TimS9999@ausdk12.org',
+            team: 'a'
+        },
+        b: {
+            name: 'Alice Scholar',
+            email: 'AliceS4300@ausdk12.org',
+            team: 'a'
+        },
+        c: {
+            name: 'Jane Example',
+            email: 'JaneE5900@auskd12.org',
+            team: 'a'
+        },
+        d: {
+            name: 'Bob Debater',
+            email: 'BobD9300@ausdk12.org',
+            team: 'b'
+        }
+        e: {
+            name: 'Jean Orator',
+            email: 'JeanO6500@ausdk12.org',
+            team: 'b'
+        }
+        f: {
+            name: 'John Presenter',
+            email: 'JohnP11900@ausdk12.org',
+            team: 'b'
+        }
+    }
+}
