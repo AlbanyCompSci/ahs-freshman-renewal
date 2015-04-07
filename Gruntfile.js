@@ -3,10 +3,11 @@ var Webpack = require('webpack');
 var Config = require('./config');
 
 module.exports = function(grunt) {
-    var webpackBasic = {
+    var webpackConfig = function(config) {return {
         entry: './src/main.jsx',
         output: {
-            filename: './index.js'
+            path: __dirname + '/' + (config.dir || '.'),
+            filename: 'index.js'
         },
         module: {
             loaders: [
@@ -18,8 +19,9 @@ module.exports = function(grunt) {
         },
         resolve: {
             extensions: ['', '.js', '.jsx', '.css', '.less']
-        }
-    }
+        },
+        watch: config.watch || false
+    }}
     grunt.initConfig({ pkg: grunt.file.readJSON('package.json'),
         jshint: {
             files: ['gruntfile.js', 'src/**/*.jsx', 'test/**/*.js'],
@@ -28,25 +30,19 @@ module.exports = function(grunt) {
             }
         },
         webpack: {
-            dev: webpackBasic,
-            devWatch: _.assign(_.clone(webpackBasic), {watch: true}),
-            production: _.assign(
-                _.clone(webpackBasic),
-                {
-                    plugins: [
-                        new Webpack.optimize.UglifyJsPlugin({
-                            beautify: {
-                                ascii_only: true
-                            }
-                        })
-                    ],
-                    output: {filename: 'deploy/index.js'}
-                }
-            )
+            dev: webpackConfig({dir: 'dev'}),
+            devWatch: webpackConfig({dir: 'dev', watch: true}),
+            production: webpackConfig({dir: 'dist', plugins: [
+                new Webpack.optimize.UglifyJsPlugin({
+                    beautify: {
+                        ascii_only: true
+                    }
+                })
+            ]})
         },
         firebase: {
             options: {
-                reference: Config.FIREBASE_REFERENCE,
+                reference: Config.FIREBASE_ROOT,
                 token: Config.FIREBASE_TOKEN,
             },
             backup: {

@@ -1,6 +1,6 @@
 {
   "firebase": "ahs-freshman-renewal",
-  "public": "deploy",
+  "public": "dist",
   "ignore": [
     "firebase.json",
     "**/.*",
