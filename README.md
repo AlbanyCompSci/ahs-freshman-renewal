@@ -15,6 +15,10 @@ There is a lot to learn. It took me many months before I got to feel productive 
       modular way. React provides tools for easily and efficiently building
       HTML in the DOM from within the app, as well as dividing it into
       components which can be easily composed.
+- [Lodash](https://lodash.com/)
+    - Lodash provides utility functions (especially for dealing with arrays,
+      object etc.). It is a drop-in replacement for
+      [Underscore](http://underscorejs.org/).
 - [Firebase](https://www.firebase.com/)
     - Firebase provides the backend NoSQL database for the app as well as a
       built-in authorization and authentication system to log-in and manage
@@ -62,3 +66,4 @@ There is a lot to learn. It took me many months before I got to feel productive 
 - Validation feedback for select boxes
 - Prevent scroll bar from appearing on expanding select menus
 - Add put, post and delete properties to field type
+- Consider [Parse](https://parse.com/) for replacing Firebase
