@@ -20,6 +20,9 @@ module.exports = function(grunt) {
         resolve: {
             extensions: ['', '.js', '.jsx', '.css', '.less']
         },
+        optimize: {
+            minimize: config.minimize || false
+        },
         watch: config.watch || false
     }}
     grunt.initConfig({ pkg: grunt.file.readJSON('package.json'),
@@ -32,13 +35,7 @@ module.exports = function(grunt) {
         webpack: {
             dev: webpackConfig({dir: 'dev'}),
             devWatch: webpackConfig({dir: 'dev', watch: true}),
-            dist: webpackConfig({dir: 'dist', plugins: [
-                new Webpack.optimize.UglifyJsPlugin({
-                    beautify: {
-                        ascii_only: true
-                    }
-                })
-            ]})
+            dist: webpackConfig({dir: 'dist', minimize: true})
         },
         firebase: {
             options: {
