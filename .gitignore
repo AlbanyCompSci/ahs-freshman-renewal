@@ -5,8 +5,10 @@
 node_modules/
 
 # Build files
-dev/  # development builds
-dist/ # production builds to be deployed with Firebase
+# development builds
+dev/
+# production builds to be deployed with Firebase
+dist/
 
 # Log files
 *.log
