@@ -26,10 +26,10 @@
   "dependencies": {
     "bootstrap": "~3.3.4",
     "react-bootstrap": "~0.20.0",
-    "firebase": "~2.2.3",
     "react": "~0.13.1",
     "lodash": "~3.6.0",
-    "react-select": "~0.4.5"
+    "react-select": "~0.4.5",
+    "parse-react": "~0.1.4"
   },
   "devDependencies": {
     "grunt": "*",
