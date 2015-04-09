@@ -15,7 +15,10 @@ module.exports = function(grunt) {
                 { test: /\.less$/, loader: 'style!css!less' },
                 { test: /\.css$/, loader: 'style!css' },
                 { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
-            ]
+            ],
+            // TODO: new version of Parse (expected mid Apr. 2015) should fix
+            // the import for Parse and make this unecessary
+            noParse: /parse-latest.js/
         },
         resolve: {
             extensions: ['', '.js', '.jsx', '.css', '.less']
@@ -23,7 +26,7 @@ module.exports = function(grunt) {
         optimize: {
             minimize: config.minimize || false
         },
-        watch: config.watch || false
+        watch: config.watch || false,
     }}
     grunt.initConfig({ pkg: grunt.file.readJSON('package.json'),
         jshint: {
@@ -36,28 +39,13 @@ module.exports = function(grunt) {
             dev: webpackConfig({dir: 'dev'}),
             devWatch: webpackConfig({dir: 'dev', watch: true}),
             dist: webpackConfig({dir: 'dist', minimize: true})
-        },
-        firebase: {
-            options: {
-                reference: Config.FIREBASE_ROOT,
-                token: Config.FIREBASE_TOKEN,
-            },
-            backup: {
-                options: {
-                    mode: 'download',
-                    dest: Config.BACKUP_DIR + '/' + (new Date()).toISOString()
-                }
-            }
         }
     });
     grunt.loadNpmTasks('grunt-jsxhint');
     grunt.loadNpmTasks('grunt-webpack');
     grunt.loadNpmTasks('grunt-keepalive');
-    grunt.loadNpmTasks('grunt-firebase');
     grunt.registerTask('lint', ['jshint']);
     grunt.registerTask('dev-build', ['webpack:dev']);
     grunt.registerTask('dev-watch', ['webpack:devWatch', 'keepalive']);
     grunt.registerTask('dist', ['webpack:dist']);
-    grunt.registerTask('seed', ['firebase:seed']);
-    grunt.registerTask('backup', ['firebase:backup']);
 }
