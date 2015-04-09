@@ -1,5 +1,4 @@
 var Secret = require('./secret.js');
 
-exports.FIREBASE_ROOT = 'https://ahs-freshman-renewal.firebaseio.com';
-exports.FIREBASE_TOKEN = Secret.FIREBASE_TOKEN;
-exports.BACKUP_DIR = 'backup';
+exports.PARSE_APPLICATION_ID = 'DKW82wJJ1KX6UOPZIM05oWQTep3gtKxOnFUa4O9j';
+exports.PARSE_JAVASCRIPT_KEY = Secret.PARSE_JAVASCRIPT_KEY;
