@@ -1,5 +1,7 @@
 var _ = require('lodash');
 var Webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
 var Config = require('./config');
 
 module.exports = function(grunt) {
@@ -27,6 +29,9 @@ module.exports = function(grunt) {
             minimize: config.minimize || false
         },
         watch: config.watch || false,
+        plugins: [new HtmlWebpackPlugin({
+            filename: 'index.html'
+        })]
     }}
     grunt.initConfig({ pkg: grunt.file.readJSON('package.json'),
         jshint: {
