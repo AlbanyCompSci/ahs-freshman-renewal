@@ -15,7 +15,7 @@ There is a lot to learn. It took me many months before I got to feel productive 
       modular way. React provides tools for easily and efficiently building
       HTML in the DOM from within the app, as well as dividing it into
       components which can be easily composed.
-- [Lodash](https://lodash.com/)
+- [Lo-Dash](https://lodash.com/)
     - Lodash provides utility functions (especially for dealing with arrays,
       object etc.). It is a drop-in replacement for
       [Underscore](http://underscorejs.org/).
