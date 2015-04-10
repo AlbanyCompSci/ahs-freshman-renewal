@@ -1,11 +1,13 @@
 require('bootstrap/less/bootstrap.less');
 
 var React = require('react');
-var RB = require('react-bootstrap');
-var Firebase = require('firebase');
+var {TabbedArea, TabPane} = require('react-bootstrap');
+var Parse = require('parse').Parse;
+var ReactParse = require('parse-react');
 var _ = require('lodash');
 
-var FIREBASE_ROOT = "https://ahs-freshman-renewal.firebaseio.com";
+var Config = require('../config');
+var DB = require('./db');
 
 var tabs = [
     require('./tabs/home'),
@@ -18,68 +20,53 @@ var tabs = [
 ];
 
 var App = React.createClass({
-    binds: function() {
-        var tabBinds = function(tab) {
-            return _.values(tab.binds);
-        };
-        // List all bindings (as child paths) in the tabs
-        var binds = _.reduce(
-            _.map(tabs, tabBinds),
-            function(a,b) { return a.concat(b) }
-        );
-        return binds;
-    },
+    mixins: [ReactParse.Mixin],
     getInitialState: function() {
-        var initState = {binds: {}};
-        _.map(this.binds(), function(bind) {
-            initState.binds[bind] = {};
-        });
-        return initState;
+        return {key: 0};
     },
-    componentWillMount: function () {
-        this.firebase = new Firebase(FIREBASE_ROOT);
-        _.map(this.binds(), function(bind) {
-            table = this.firebase.child(bind);
-            table.on('child_added', function(dataSnapshot) {
-                allBinds = _.clone(this.state.binds);
-                allBinds[bind] = _.clone(allBinds[bind]);
-                allBinds[bind][dataSnapshot.key()] = dataSnapshot.val();
-                this.setState({binds: allBinds});
-            }.bind(this));
-            table.on('child_removed', function(dataSnapshot) {
-                allBinds = _.clone(this.state.binds);
-                allBinds[bind] = _.clone(allBinds[bind]);
-                delete allBinds[bind][dataSnapshot.key()];
-                this.setState({binds: allBinds});
-            }.bind(this));
-        }.bind(this));
+    componentWillMount: function() {
+        Parse.initialize(
+            Config.PARSE_APPLICATION_ID,
+            Config.PARSE_JAVASCRIPT_KEY
+        );
     },
     componentDidMount: function() {
         document.title = 'AHS Freshman Debates';
     },
-    componentWillUnmount: function() {
-        this.firebase.off();
+    observe: function(nextProps, nextState) {
+        var observes = DB.makeObserves(tabs[nextState.key].bindSpec);
+        return observes;
+    },
+    onSelect: function(key) {
+        this.setState({key: key});
     },
     render: function () {
-        var specificBinds = function(binds) {
-            specBinds = {};
-            for (var k in binds) {
-                specBinds[k] = this.state.binds[binds[k]];
-            }
-            return specBinds;
-        }.bind(this);
         var panes = tabs.map(function(tab, index) {
+            // If the tab is not currently selected, we are not observing its
+            // bindings and so we cannot render it.
+            body = null;
+            if (this.state.key === index) {
+                var binds = DB.makeBinds(
+                    tabs[this.state.key].bindSpec,
+                    this.data
+                );
+                body = tab.body(binds);
+            }
             return (
-                <RB.TabPane key={index} eventKey={index} tab={tab.title}>
-                    {tab.body(specificBinds(tab.binds), this.firebase)}
-                </RB.TabPane>
+                <TabPane key={index} eventKey={index} tab={tab.title}>
+                    {body}
+                </TabPane>
             );
         }.bind(this));
-        return (<RB.TabbedArea defaultActiveKey={0}>{panes}</RB.TabbedArea>);
+        return (
+            <TabbedArea activeKey={this.state.key} onSelect={this.onSelect}>
+                {panes}
+            </TabbedArea>
+        );
     }
 });
 
 React.render(
     <App />,
-    document.getElementById('body')
+    document.body
 );

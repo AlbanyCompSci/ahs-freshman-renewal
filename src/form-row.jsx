@@ -6,15 +6,14 @@ var { Button, Glyphicon } = require('react-bootstrap');
 var _ = require('lodash');
 
 var { FormField } = require('./form-field');
-var { bindsType } = require('./types');
-var { fieldType } = require('./field-lib');
+var { fieldType, bindsType } = require('./field-lib');
 
 var Type = React.PropTypes;
 
 exports.FormRow = React.createClass({
     propTypes: {
         value: Type.object.isRequired,
-        binds: bindsType.isRequired,
+        binds: Type.objectOf(bindsType).isRequired,
         fields: Type.arrayOf(fieldType).isRequired,
         red: Type.func,
         green: Type.func
@@ -48,7 +47,7 @@ exports.FormRow = React.createClass({
                             <FormField
                                 key={index}
                                 value={this.state.item[field.property]}
-                                binds={this.props.binds}
+                                binds={this.props.binds[field.property]}
                                 field={field}
                                 onChange={this.onFieldChange(field)}
                             />

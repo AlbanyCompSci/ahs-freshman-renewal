@@ -1,8 +1,11 @@
 var React = require('react');
+var Parse = require('parse').Parse;
+var ParseReact = require('parse-react');
 var _ = require('lodash');
 
 var Field = require('../field-lib');
 var { EntryTable } = require('../entry-table');
+var { Debate, User, Team } = require('../db');
 
 titleField = {
     property: "title",
@@ -12,14 +15,19 @@ titleField = {
         return ((v !== "New Debate") && (v.length > 0));
     },
     default: "New Debate",
+    binds: {}
 };
 
 locationField = {
     property: "location",
     header: "Location",
-    render: Field.selectInput('locations', _.identity),
+    render: Field.selectInput('locations', Field.get('name')),
     validate: Field.nonNull,
     default: "",
+    binds: function() {
+        var query = new Parse.Query('Location');
+        return {locations: query};
+    }()
 };
 
 timeField = {
@@ -28,6 +36,7 @@ timeField = {
     render: Field.dateTimeInput,
     validate: Field.nonNull,
     default: String(_.now()),
+    binds: {}
 };
 
 judgesField = {
@@ -36,22 +45,25 @@ judgesField = {
     render: Field.selectInput('judges', Field.get('name'), {multi: true}),
     validate: Field.nonNull,
     default: "",
+    binds: {judges: new Parse.Query(User) /*TODO: limit to judges*/}
 };
 
 affTeamField = {
-    property: "affTeam",
+    property: "affirmative",
     header: "Affirmative",
     render: Field.selectInput('teams', Field.get('name')),
     validate: Field.nonNull,
     default: "",
+    binds: {teams: new Parse.Query(Team)}
 };
 
 negTeamField = {
-    property: "negTeam",
+    property: "negative",
     header: "Negative",
     render: Field.selectInput('teams', Field.get('name')),
     validate: Field.nonNull,
     default: "",
+    binds: {teams: new Parse.Query(Team)}
 };
 
 var fields = [
@@ -63,21 +75,34 @@ var fields = [
     negTeamField
 ];
 
-exports.name = "debates";
-exports.title = "Debates";
-exports.binds = {
-    debates: 'debates',
-    judges: 'judges',
-    teams: 'teams',
-    locations: 'locations'
+var post = function(data) {
+    ParseReact.Mutation.Create(Debate, data).dispatch();
 };
-exports.body = function(binds, firebase) {
+var put = function(id, data) {
+    ParseReact.Mutation.Set(id, data).dispatch();
+};
+var del = function(id) {
+    ParseReact.Mutation.Destroy(id).dispatch();
+}
+
+exports.name = 'debates';
+exports.title = 'Debates';
+exports.bindSpec = {
+    items: new Parse.Query(Debate),
+    fields: _.zipObject(
+        _.pluck(fields, 'property'),
+        _.pluck(fields, 'binds')
+    )
+};
+exports.body = function(binds) {
     return (
         <EntryTable
             fields={fields}
-            table={binds.debates}
-            binds={binds}
-            firebase={firebase.child("debates")}
+            items={binds.items}
+            binds={binds.fields}
+            put={put}
+            post={post}
+            del={del}
         />
     );
 };

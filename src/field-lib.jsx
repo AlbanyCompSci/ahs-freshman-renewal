@@ -6,6 +6,7 @@ var React = require('react'); //Needed for react-bootstrap
 var { Input } = require('react-bootstrap');
 var Select = require('react-select');
 var DateTimeField = require('react-bootstrap-datetimepicker');
+var Parse = require('parse').Parse;
 var _ = require('lodash');
 
 var Type = require('react').PropTypes;
@@ -15,8 +16,11 @@ exports.fieldType = Type.shape({
     header: Type.string.isRequired,
     render: Type.func.isRequired,
     validate: Type.func.isRequired,
-    default: Type.any.isRequired
+    default: Type.any.isRequired,
+    binds: Type.objectOf(Type.instanceOf(Parse.Query))
 });
+
+exports.bindsType = Type.objectOf(Type.arrayOf(Type.object));
 
 exports.get = function(key) {
     return function(obj) {
@@ -48,17 +52,22 @@ exports.textInput = function(value, binds, validity, onChange) {
 exports.selectInput = function(table, show, kwargs) {
     kwargs = kwargs || {multi: false};
     return (function(value, binds, validity, onChange) {
-        var options = _.transform(binds[table], function(acc, val, key) {
-            acc.push({value: key, label: show(val)});
-        }, []);
+        var options = _.map(binds[table], function(item) {
+            return {value: item.id, label: show(item)};
+        });
+        console.log('table: ' + table);
+        console.log('options: ' + JSON.stringify(options));
+        console.log('value: ' + JSON.stringify(value));
         // NOTE: We have to check that the key is in the current table before
         // it is loaded, this may not necessarily be the case when the app
         // is first loading, as values are added incrementally
-        var values = kwargs.multi ? value.split(',') : [value]
-        values = _.filter(values, function(key) {
-            return _.has(binds[table], key)
+        var values = kwargs.multi ? value : [value]
+        console.log('values: ' + JSON.stringify(values));
+        values = _.filter(values, function(value) {
+            return _(options).pluck('value').contains(value);
         });
-        var val = values.length > 0 ? values.join(',') : null
+        console.log('values: ' + JSON.stringify(values));
+        val = values.length > 0 ? values.join(',') : null
         return (
             <Select
                 multi={kwargs.multi}
