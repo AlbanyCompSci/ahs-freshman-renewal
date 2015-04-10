@@ -57,13 +57,17 @@ There is a lot to learn. It took me many months before I got to feel productive 
 ## TODO
 - **Documentation**
 - Authentication/Authorization
-- Deal with bound tables in a sensible way
-    - maximize performance
-    - more importantly, make clear and easy
 - Change name from ahs-freshman-renewal when new name is decided upon
-- Allow Unicode characters in minimize source
+- Allow Unicode characters in minimized source
 - Fix Unicode support for multi select boxes (non-minimized source)
 - Validation feedback for select boxes
-- Prevent scroll bar from appearing on expanding select menus
-- Add put, post and delete properties to field type
-- Consider [Parse](https://parse.com/) for replacing Firebase
+- Consider Gulp or other task runner over Grunt
+- User PureRenderMixin
+- Refactor component state into Flux store
+- Consider [Babel](https://babeljs.io) for ES6 support
+- Tests
+- Consider using immutable data types such as
+  [ImmutableJS](http://facebook.github.io/immutable-js/) in place of pure
+  Lo-Dash functions.
+- Abstract backend-storage format out of view logic
+- Upload support
