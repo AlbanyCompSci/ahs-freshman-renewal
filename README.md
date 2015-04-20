@@ -19,10 +19,9 @@ There is a lot to learn. It took me many months before I got to feel productive 
     - Lodash provides utility functions (especially for dealing with arrays,
       object etc.). It is a drop-in replacement for
       [Underscore](http://underscorejs.org/).
-- [Firebase](https://www.firebase.com/)
-    - Firebase provides the backend NoSQL database for the app as well as a
-      built-in authorization and authentication system to log-in and manage
-      user access with their school Google account.
+- [Parse](https://www.parse.com/)
+    - Parse is a hosted relational database providing the backend for the
+      project.
 - [Grunt](http://gruntjs.com/)
     - We use Grunt to manage development tasks including building the app with
       Webpack and linting code with JSXHint.
@@ -41,7 +40,7 @@ There is a lot to learn. It took me many months before I got to feel productive 
 - [Git](http://git-scm.com/)
     - We use Git to manage the project's development 
     - A great cheatsheet can be found [here](http://rogerdudler.github.io/git-guide/)
-      (exuse the profanity).
+      (beware of light profanity).
 
 ## Installation
 - Install [Node.js](http://nodejs.org/download)
@@ -56,6 +55,7 @@ There is a lot to learn. It took me many months before I got to feel productive 
 
 ## TODO
 - **Documentation**
+    - Use [JSDoc](http://usejsdoc.org/)
 - Authentication/Authorization
 - Change name from ahs-freshman-renewal when new name is decided upon
 - Allow Unicode characters in minimized source
