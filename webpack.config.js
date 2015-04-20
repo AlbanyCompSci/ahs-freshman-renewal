@@ -3,12 +3,15 @@
 // command line.
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CompressionPlugin = require('compression-webpack-plugin');
+
+var JSFILE = 'index.js';
 
 module.exports.make = function(config) {return {
     entry: './src/main.jsx',
     output: {
         path: __dirname + '/' + (config.dir || '.'),
-        filename: 'index.js'
+        filename: JSFILE
     },
     module: {
         loaders: [
@@ -25,11 +28,15 @@ module.exports.make = function(config) {return {
         extensions: ['', '.js', '.jsx', '.css', '.less']
     },
     optimize: {
-        minimize: config.minimize || false
+        minimize: config.minimize || false,
+        dedupe: true
     },
     watch: config.watch || false,
-    plugins: [new HtmlWebpackPlugin({
-        title: 'Albany High School Freshman Debates',
-        filename: 'index.html'
-    })]
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: 'Albany High School Freshman Debates',
+            filename: 'index.html',
+            assets: {index: config.compress ? JSFILE + '.gz' : JSFILE}
+        })
+    ].concat(config.compress ? [new CompressionPlugin()] : [])
 }}

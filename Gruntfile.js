@@ -11,7 +11,11 @@ module.exports = function(grunt) {
         webpack: {
             dev: WebpackConfig.make({dir: 'dev'}),
             devWatch: WebpackConfig.make({dir: 'dev', watch: true}),
-            dist: WebpackConfig.make({dir: 'dist', minimize: true})
+            dist: WebpackConfig.make({
+                dir: 'dist',
+                minimize: true,
+                compress: true
+            })
         }
     });
     grunt.loadNpmTasks('grunt-jsxhint');
