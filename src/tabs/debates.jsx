@@ -35,7 +35,7 @@ timeField = {
     header: "Time",
     render: Field.dateTimeInput,
     validate: Field.nonNull,
-    default: String(_.now()),
+    default: new Date(),
     binds: {}
 };
 
