@@ -5,7 +5,7 @@ var stringify = require('json-stable-stringify');
 
 exports.Debate = Parse.Object.extend('Debate');
 exports.Team = Parse.Object.extend('Team');
-exports.User = Parse.Object.extend('User');
+exports.User = Parse.Object.extend('_User');
 exports.Score = Parse.Object.extend('Score');
 exports.Evaluation = Parse.Object.extend('Evaluation');
 
