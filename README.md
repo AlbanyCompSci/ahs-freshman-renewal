@@ -71,3 +71,4 @@ There is a lot to learn. It took me many months before I got to feel productive 
   Lo-Dash functions.
 - Abstract backend-storage format out of view logic
 - Upload support
+- Fix Compression
