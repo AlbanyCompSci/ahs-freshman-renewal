@@ -2,12 +2,12 @@ require('bootstrap/less/bootstrap.less');
 require('react-select/less/default.less');
 require('react-bootstrap-datetimepicker/css/bootstrap-datetimepicker.css');
 
-var React = require('react'); //Needed for react-bootstrap
-var { Input } = require('react-bootstrap');
-var Select = require('react-select');
-var DateTimeField = require('react-bootstrap-datetimepicker');
-var Parse = require('parse').Parse;
-var _ = require('lodash');
+import * as React from 'react'; //Needed for react-bootstrap
+import { Input } from 'react-bootstrap';
+import * as Select from 'react-select';
+import * as DateTimeField from 'react-bootstrap-datetimepicker';
+import { Parse } from 'parse';
+import * as _ from 'lodash';
 
 var Type = require('react').PropTypes;
 

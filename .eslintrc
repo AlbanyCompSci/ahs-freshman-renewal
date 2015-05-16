@@ -1,0 +1,18 @@
+{
+  // use babel-eslint for parsing
+  "parser": "babel-eslint",
+  "ecmaFeatures": {
+    "jsx": true
+  },
+  "env": {
+    // writing for the browser
+    "browser": true,
+    // in CommonJS
+    "node": true
+  },
+  // override rule options:
+  "rules": {
+      "quotes": [2, "single"],
+      "no-unused-vars": [0], // Necessary for React components in JSX
+  }
+}

@@ -2,7 +2,7 @@
   "name": "ahs-freshman-renewal",
   "version": "0.0.0",
   "description": "Website for the Albany High School Freshman Renewal Debates.",
-  "main": "src/main.jsx",
+  "main": "src/main.js",
   "directories": {
     "doc": "docs"
   },
@@ -15,8 +15,7 @@
   },
   "keywords": [
     "Debates",
-    "React",
-    "Firebase"
+    "React"
   ],
   "author": "David Harrison",
   "license": "BSD-2-Clause",
@@ -27,15 +26,16 @@
     "bootstrap": "~3.3.4",
     "react-bootstrap": "~0.20.0",
     "react": "~0.13.1",
-    "lodash": "~3.6.0",
     "react-select": "~0.4.5",
     "parse": "~1.4.1",
     "parse-react": "~0.1.4",
-    "json-stable-stringify": "~1.0.0"
+    "json-stable-stringify": "~1.0.0",
+    "immutable": "~3.7.2",
+    "lazy.js": "~0.4.0",
+    "eslint-friendly-formatter": "~1.0.5"
   },
   "devDependencies": {
     "grunt": "*",
-    "grunt-jsxhint": "*",
     "react-tools": "*",
     "webpack": "~1.7.3",
     "webpack-dev-server": "~1.8.0",
@@ -48,6 +48,15 @@
     "file-loader": "~0.8.1",
     "url-loader": "~0.5.5",
     "html-webpack-plugin": "~1.1.0",
-    "compression-webpack-plugin": "~0.2.0"
+    "compression-webpack-plugin": "~0.2.0",
+    "eslint": "~0.21.0",
+    "babel-eslint": "~3.1.2",
+    "eslint-loader": "~0.11.2",
+    "flowcheck-loader": "~1.0.0",
+    "flowcheck": "~0.2.6",
+    "babel-loader": "~5.0.0",
+    "babel-core": "~5.3.3",
+    "stripcolorcodes": "~0.1.0",
+    "grunt-eslint": "~13.0.0"
   }
 }

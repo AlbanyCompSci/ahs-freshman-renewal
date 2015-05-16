@@ -72,3 +72,5 @@ There is a lot to learn. It took me many months before I got to feel productive 
 - Abstract backend-storage format out of view logic
 - Upload support
 - Fix Compression
+- Consider SystemJS for CSS/Less loading etc.
+- Consider JSX for virtual-dom instead of React w/ JSX
