@@ -5,10 +5,10 @@ import * as React from 'react';
 
 // import {PARSE_APPLICATION_ID, PARSE_JAVASCRIPT_KEY} from '../config';
 
-import {runComponent} from './util/component';
+import {runComponent} from './architecture/component';
 // import {App} from './app';
-import {counter} from './util/example/counter';
-import {tabbed} from './tabbed';
+import {counter} from './architecture/units/counter';
+import {tabbed} from './architecture/combinators/tabbed';
 
 function main() {
     document.title = 'AHS Freshman Debates';

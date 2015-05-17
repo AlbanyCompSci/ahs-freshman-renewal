@@ -1,5 +1,4 @@
 /* @flow */
-
 import type {Callback} from '../component';
 
 type FieldDef<T, BS> = {

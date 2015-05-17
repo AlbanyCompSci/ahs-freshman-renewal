@@ -11,7 +11,7 @@
  * about values arising from previous renderings. */
 
 /* The type of a component in the architecture */
-export type Component<Model, Action> = {
+export type Component<Model, Action, Rendered> = {
     /* The initial state of the component's state */
     init: Model;
     /* Update the component's current state model `m` with an incoming action
@@ -23,7 +23,7 @@ export type Component<Model, Action> = {
      * use them to update the component's state as well as use them itself.
      * Carefully document any interface that the actions provide to the parent,
      * and avoid exporting internal functionality on actions/models. */
-    render: (m: Model) => {view: ReactElement; promise: Promise<Action>}
+    render: (m: Model) => {rendered: Rendered; promise: Promise<Action>}
 };
 
 /* Indefinitely apply the function `iter` to the result of previous promise,
@@ -41,7 +41,7 @@ function loop(init: T, iter: (x: T) => Promise<T>, onErr: (err: any) => void): v
 /* TODO: make sure runComponent operates with constant memory, since it will
  * run indefinitely will a potentially high frequency of updates, this is
  * critical */
-export function runComponent<M, A>(component: Component<M, A>, onRender: (e: ReactElement) => void): void {
+export function runComponent<M, A, R>(component: Component<M, A, R>, onRender: (r: R) => void): void {
     /* Callback to log errors from the action `Promise`. */
     function onErr(err): void {
         console.log('Error stemming from a Promise: ' + err + '\n' + err.stack);
@@ -50,8 +50,8 @@ export function runComponent<M, A>(component: Component<M, A>, onRender: (e: Rea
      * Promise for a new Model updated with the action coming from `render`'s
      * Action Promise. */
     function render(model: any): Promise<any> {
-        const {view, promise} = component.render(model);
-        onRender(view);
+        const {rendered, promise} = component.render(model);
+        onRender(rendered);
         return promise.then((action) => (component.update(action, model)));
     }
     /* Indefinitely render the component's updated Model, starting with the

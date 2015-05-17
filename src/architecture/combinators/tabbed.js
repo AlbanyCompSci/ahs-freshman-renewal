@@ -11,57 +11,47 @@ import * as React from 'react';
 /* React components with Bootstrap styling for building tabbed areas */
 import {TabbedArea, TabPane} from 'react-bootstrap';
 
-import type {Component} from './util/component';
-import type {Either} from './util/either';
-import {either, left, right} from './util/either';
-import {Deferred} from './util/deferred';
+import type {Component} from '../component';
+import type {Either} from '../../util/either';
+import type * as ArrayOf from './arrayOf';
+import {either, left, right} from '../../util/either';
+import {Deferred} from '../../util/deferred';
 
 /* The model for the tabbed area is product (type) of the current tab index
  * and the tab's model
  * NOTE: Unfortunately/fortunately, all tabs must have the same model type
  * as Flow does not support dependent types */
-type Model<M> = {currTabIx: number; tabModels: Array<M>};
-
-/* An action from a tab tagged with its index */
-type TabAction<A> = {ix: number, action: A};
+type Model<M> = {currTabIx: number; tabModels: ArrayOf.Model};
 
 /* The action type of the tabbed area is either a new tab index
  * or a tab action */
-type Action<A> = Either<TabAction<A>, number>
+type Action<A> = Either<ArrayOf.Action<A>, number>
 
 /* A tab consists of a title to be displayed on the selection tab, along with
  * the component to display in the body */
-type Tab<M, A> = {title: string, component: Component<M, A>}
+type Tab<M, A> = {title: string, component: Component<M, A, ReactElement>}
+
+type Rendered = ReactElement;
 
 /* Create a component for a tabbed area given an array of tabs */
-export function tabbed<M, A>(tabs: Array<Tab<M, A>>): Component<Model<M>, Action<A>> {
+export function tabbed<M, A>(tabs: Array<Tab<M, A>>): Component<Model<M>, Action<A>, Rendered> {
+    const arrayComponent = arrayOf(R.map((t) => (t.component), tabs));
 
-    /* The initial state of the tabbed area sets the current tab to the be the
-     * first in the given list, and the list of states to be that of all the
-     * given tabs' initial states. */
-    const init = function() {
-        const inits = tabs.map((t) => (t.component.init));
-        return {currTabIx: 0, tabModels: inits};
-    }();
+    const init = {currTabIx: 0, tabModels: arrayComponent.init};
 
     /* The update function takes an action to either change the area's current
      * tab or to update a tabs internal state */
     function update(a: Action<any>, m: Model<any>): Model<any> {
-        /* Update the interal state of the tab at the specified index with
-         * the provided action. */
-        function updateTab({ix, act}: {ix: number, act: any}) {
-            // TODO: use immutable data structures to avoid explicit copying
-            const newTabModels = m.tabModels.slice();
-            newTabModels[ix] = tabs[ix].component.update(act, m.tabModels[ix]);
-            return {currTabIx: m.currTabIx, tabModels: newTabModels};
-        }
         /* Change the current tab to the provided index. */
         function changeTab(n: number) {
             return {currTabIx: n, tabModels: m.tabModels};
         }
+        function arrayUpdate(a: ArrayOf.Action<any>) {
+            return {currTabIx: m.currTabIx, 
+        }
         /* Resolve the provided `Either` action by providing a function for
          * each possible side (right/left). */
-        return either(a, updateTab, changeTab);
+        return either(a, updateTab, arrayComponent.update);
     }
 
     /* Render the tabs, showing the tab at the current index. */

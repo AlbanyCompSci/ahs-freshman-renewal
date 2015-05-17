@@ -8,11 +8,12 @@
 /* Needed for JSX transform */
 import * as React from 'react';
 
-import {Deferred} from '../deferred';
-import type {Component, Callback} from '../component';
+import {Deferred} from '../../util/deferred';
+import type {Component} from '../component';
 
-type Action = void;
-type Model = number;
+export type Action = void;
+export type Model = number;
+export type Rendered = ReactElement;
 
 function update(a: Action, m: Model): Model {
     return (m + 1);
@@ -20,16 +21,15 @@ function update(a: Action, m: Model): Model {
 
 function render(m: Model): {view: ReactElement; promise: Promise<Action>} {
     const deferred = new Deferred();
-    console.log(JSON.stringify(deferred));
     const view = (
         <button onClick={() => (deferred.resolve(undefined))}>
             <h1>{String(m)}</h1>
         </button>
     );
-    return {view: view, promise: deferred.promise};
+    return {rendered: rendered, promise: deferred.promise};
 }
 
-export const counter: Component<Model, Action> = {
+export const counter: Component<Model, Action, Rendered> = {
     init: 0,
     update: update,
     render: render
