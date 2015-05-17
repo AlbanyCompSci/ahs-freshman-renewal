@@ -15,7 +15,7 @@ class Right<T> {
     }
 }
 
-export type Either<A, B> = (Left | Right);
+export type Either<A, B> = (Left<A> | Right<B>);
 
 export function left<A, B>(v: A): Either<A, B> {
     return new Left(v);

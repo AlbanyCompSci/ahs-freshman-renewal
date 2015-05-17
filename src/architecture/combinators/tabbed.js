@@ -66,11 +66,11 @@ export function tabbed<M, A>(tabs: Array<Tab<M, A>>): Component<Model<M>, Action
 
     /* Render the tabs, showing the tab at the current index. */
     function render(m: Model<any>): {view: ReactElement; promise: Promise<Any>} {
-        /* A `Deferred` for changing the current tab index. */
+        /* A `Deferred` for the value of an incoming tab selection. */
         const changeTab = new Deferred();
         /* A promise that will never return, to be used for tabs that are not
          * rendered (see below). */
-        const emptyPromise = (new Deferred()).promise;
+        const emptyPromise = new Promise(function(resolve, reject) {});
         /* An array of tab panes with only the current one rendered, the others
          * being set to null, with empty promises. */
         const panes = tabs.map(
@@ -96,10 +96,9 @@ export function tabbed<M, A>(tabs: Array<Tab<M, A>>): Component<Model<M>, Action
                 /* The tab's promise takes the promise of the tab itself,
                  * and wraps it with the tab's index and then in a `left` to
                  * signal which part of the `Either` it is */
-                function tagAction(tabIx: number): Action<any> {
-                    return (action) => left({ix: tabIx, action: action});
-                }
-                const tabPromise = rendered.promise.then(tagAction);
+                const tabPromise = rendered.promise.then(function(action) {
+                    return left({ix: ix, action: action});
+                });
                 return {view: tabView, promise: tabPromise};
             }
         );
@@ -115,7 +114,7 @@ export function tabbed<M, A>(tabs: Array<Tab<M, A>>): Component<Model<M>, Action
         /* Wrap the changeTab `Promise` in a `right` to indicate which type
          * of action it is. */
         const changeTabPromise = changeTab.promise.then((ix) => right(ix));
-        const allPromises = [changeTabPromise] + panes.map((p) => (p.view));
+        const allPromises = [changeTabPromise].concat(panes.map((p) => (p.promise)));
         /* Race all of the promises (select whichever action completes
          * (is triggered) first). */
         const promise = Promise.race(allPromises);
