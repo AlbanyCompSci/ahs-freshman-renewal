@@ -32,7 +32,8 @@
     "json-stable-stringify": "~1.0.0",
     "immutable": "~3.7.2",
     "lazy.js": "~0.4.0",
-    "eslint-friendly-formatter": "~1.0.5"
+    "eslint-friendly-formatter": "~1.0.5",
+    "ramda": "~0.14.0"
   },
   "devDependencies": {
     "grunt": "*",

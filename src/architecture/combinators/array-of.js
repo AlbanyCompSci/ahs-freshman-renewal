@@ -19,7 +19,7 @@ export function arrayOf<M, A, R>(components: Array<Component<M, A, R>>): Compone
         return R.update(ix, components[ix].update(act, models[ix]), models);
     }
 
-    function render(models: Model<any>): {rendered: ReactElement; promise: Promise<Any>} {
+    function render(models: Model<any>): {rendered: any; promise: Promise<any>} {
         const all = R.zipWith((c, m) => (c.render(m)), components, models);
         const allRendereds = R.map((x) => (x.rendered));
         const allPromises = R.map((x) => (x.promise));

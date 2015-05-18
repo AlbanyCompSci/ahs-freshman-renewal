@@ -21,7 +21,7 @@ function update(a: Action, m: Model): Model {
 
 function render(m: Model): {view: ReactElement; promise: Promise<Action>} {
     const deferred = new Deferred();
-    const view = (
+    const rendered = (
         <button onClick={() => (deferred.resolve(undefined))}>
             <h1>{String(m)}</h1>
         </button>

@@ -1,4 +1,3 @@
-/* @flow */
 'use strict';
 
 export type Pair<A, B> = {fstImpl: A, sndImpl: B};

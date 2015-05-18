@@ -1,4 +1,3 @@
-/* @flow */
 import type {Component, Callback} from './component'
 import {Tabbed} from './tabbed'
 import type * as Tab from './tabs/types'
