@@ -10,6 +10,12 @@
  * are produced by the current states rendering, without having to worry
  * about values arising from previous renderings. */
 
+/* Another related approach is the one employed in PureScript-Halogen
+ * (https://github.com/slamdata/purescript-halogen), which takes a more
+ * abstract approach and avoids the need to passing Addresses/Channels
+ * for sending input
+ */
+
 /* The type of a component in the architecture */
 export type Component<Model, Action, Rendered> = {
     /* The initial state of the component's state */
@@ -23,16 +29,8 @@ export type Component<Model, Action, Rendered> = {
      * use them to update the component's state as well as use them itself.
      * Carefully document any interface that the actions provide to the parent,
      * and avoid exporting internal functionality on actions/models. */
-    render: (m: Model) => {rendered: Rendered; promise: Promise<Action>}
+    render: (m: Model) => {view: Rendered; action: Promise<Action>}
 };
-
-/* Indefinitely apply the function `iter` to the result of previous promise,
- * starting with `init`. Handle any errors with `onErr`, terminating the loop */
-/* TODO: check that loop runs in constant space
- * http://stackoverflow.com/questions/29925948/building-a-promise-chain-recursively-in-javascript-memory-considerations */
-function loop(init: T, iter: (x: T) => Promise<T>, onErr: (err: any) => void): void {
-    iter(init).then((x) => (loop(x, iter, onErr)), onErr);
-}
 
 /* Run the top-level component of an application, calling the onRender function
  * (e.g. (element) => React.render(element, document.body)) on the rendered
@@ -57,4 +55,12 @@ export function runComponent<M, A, R>(component: Component<M, A, R>, onRender: (
     /* Indefinitely render the component's updated Model, starting with the
      * `init` Model, handling any errors with onErr */
     loop(component.init, render, onErr);
+}
+
+/* Indefinitely apply the function `iter` to the result of previous promise,
+ * starting with `init`. Handle any errors with `onErr`, terminating the loop */
+/* TODO: check that loop runs in constant space
+ * http://stackoverflow.com/questions/29925948/building-a-promise-chain-recursively-in-javascript-memory-considerations */
+function loop(init: T, iter: (x: T) => Promise<T>, onErr: (err: any) => void): void {
+    iter(init).then((x) => (loop(x, iter, onErr)), onErr);
 }
